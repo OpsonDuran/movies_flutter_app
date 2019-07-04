@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
                   );
               }else{
       return Container(
-        height: 400,
+        height: 200,
         child: Center(child: CircularProgressIndicator()));
               }
             },
