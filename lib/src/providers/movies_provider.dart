@@ -41,11 +41,12 @@ class MoviesProvider {
 
   Future<List<Movie>> getPopular() async{
 
-    if(_loading)return [];
+    if(_loading) return [];
 
     _loading=true;
 
     _popularPage++;
+
     final url = Uri.https(_url, '/3/movie/popular',{
       'api_key': _apikey,
       'languege': _language,
@@ -59,6 +60,7 @@ class MoviesProvider {
     popularsSink(_populars);
 
     _loading=false;
+    
     return response;
   }
 
