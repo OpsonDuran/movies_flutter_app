@@ -70,5 +70,13 @@ class Movie {
         return 'https://image.tmdb.org/t/p/w500/$posterPath';
       }
     }
+
+    getBackgroundImg(){
+      if(posterPath==null){
+        return 'https://blogs.uao.es/sociedad-debate/wp-content/uploads/sites/4/2014/05/image.png';
+      }else{
+        return 'https://image.tmdb.org/t/p/w500/$backdropPath';
+      }
+    }
 }
 
