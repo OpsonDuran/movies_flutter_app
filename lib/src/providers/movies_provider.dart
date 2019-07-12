@@ -23,12 +23,14 @@ class MoviesProvider {
     _popularsStreamController?.close();
   }
 
+
   Future<List<Movie>> _processResponse(Uri url) async{
     final response = await http.get(url);
     final decodeData = json.decode(response.body);
     final movies = new Movies.fromJsonList(decodeData['results']);
     return movies.items;
   }
+
 
   Future<List<Movie>> getInTheaters()async{
     final url = Uri.https(_url, '/3/movie/now_playing',{
@@ -81,5 +83,17 @@ class MoviesProvider {
     return cast.actors;
 
   }
+
+
+  Future<List<Movie>> serachMovie(String query)async{
+    final url = Uri.https(_url, '/3/search/movie',{
+      'api_key': _apikey,
+      'languege': _language, 
+      'query':query,
+    });
+
+    return await _processResponse(url);
+  }
+
 
 }

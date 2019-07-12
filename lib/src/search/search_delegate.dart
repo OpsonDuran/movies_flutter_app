@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:movies_flutter_app/src/models/movies_model.dart';
+import 'package:movies_flutter_app/src/providers/movies_provider.dart';
 
 class DataSearch extends SearchDelegate {
 
   String select='';
+  final moviesProvider = new MoviesProvider();
 
-  final movies = [
+  final moviesBase = [
     'la toalla del mojado',
     'pokemon',
     'aladino',
@@ -60,24 +63,39 @@ class DataSearch extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     // suggestions for write text
+    if(query.isEmpty){
+    return Container();
+    }
 
-    final listSearchSuggestions = (query.isEmpty) 
-                                      ? moviesNew  
-                                      : movies.where(
-                                        (movie) => movie.toLowerCase().startsWith(query.toLowerCase())
-                                      ).toList();
+    return FutureBuilder(
+      future: moviesProvider.serachMovie(query),
+      builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot){
+        if(snapshot.hasData){
+          final movies = snapshot.data;
+          return ListView(
+            children: movies.map( (movie) {
+            return ListTile(
+              leading: FadeInImage(
+                image: NetworkImage(movie.getPosterImg()),
+                placeholder: AssetImage('assets/img/no-image.jpg'),
+                width: 50.0,
+                fit: BoxFit.contain,
+              ),
+              title: Text(movie.title),
+              subtitle: Text(movie.originalTitle),
+              onTap: (){
+                close(context, null);
+                movie.uniqueId='';
+                Navigator.pushNamed(context, 'detail',arguments: movie);
+              },
 
-    return ListView.builder(
-      itemCount: listSearchSuggestions.length,
-      itemBuilder: (context,i){
-        return ListTile(
-          leading: Icon(Icons.movie),
-          title: Text(listSearchSuggestions[i]),
-          onTap: (){
-            select = listSearchSuggestions[i];
-            showResults(context);
-          },
-        );
+            );
+          }).toList(),);
+
+        }else{
+          return Center(child: CircularProgressIndicator(),);
+
+        }
       },
     );
   }
