@@ -19,9 +19,6 @@ class MovieDetail extends StatelessWidget {
             ),
             _posterTitle(context, movie),
             _description(movie),
-            _description(movie),
-            _description(movie),
-            _description(movie),
             _createCasting(movie),
           ]),
         )
@@ -39,7 +36,7 @@ class MovieDetail extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Text(
-          movie.title,
+          movie.title.toUpperCase(),
           style: TextStyle(color: Colors.white, fontSize: 16.0),
         ),
         background: FadeInImage(
@@ -105,6 +102,7 @@ class MovieDetail extends StatelessWidget {
       child: Text(
         movie.overview,
         textAlign: TextAlign.justify,
+        style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -153,6 +151,7 @@ class MovieDetail extends StatelessWidget {
           Text(
             actor.name,
             overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontWeight: FontWeight.bold),
           )
         ],
       ),
