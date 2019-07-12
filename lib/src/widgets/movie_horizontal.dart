@@ -39,13 +39,16 @@ class MovieHorizontal extends StatelessWidget {
       margin: EdgeInsets.only(right: 15.0),
       child: Column(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: FadeInImage(
-              image: NetworkImage(movie.getPosterImg()),
-              placeholder: AssetImage('assets/img/no-image.jpg'),
-              fit: BoxFit.cover,
-              height: 160.0,
+          Hero(
+            tag: movie.id,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: FadeInImage(
+                image: NetworkImage(movie.getPosterImg()),
+                placeholder: AssetImage('assets/img/no-image.jpg'),
+                fit: BoxFit.cover,
+                height: 160.0,
+              ),
             ),
           ),
           SizedBox(
@@ -62,10 +65,9 @@ class MovieHorizontal extends StatelessWidget {
 
     return GestureDetector(
       child: target,
-       onTap: (){
-        Navigator.pushNamed(context, 'detail',arguments: movie);
+      onTap: () {
+        Navigator.pushNamed(context, 'detail', arguments: movie);
       },
     );
-
   }
 }

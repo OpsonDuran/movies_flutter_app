@@ -14,8 +14,6 @@ class Cast {
 
 }
 
-
-
 class Actor {
   int castId;
   String character;
@@ -50,9 +48,9 @@ Actor.fromJsonMap(Map<String,dynamic> json){
 
 getPhoto(){
   if(profilePath == null){
-    return 'https://png.pngtree.com/svg/20160307/52c66f1f8b.png';
+    return 'https://banner2.kisspng.com/20180707/puq/kisspng-computer-icons-avatar-clip-art-5b40601d5c8c75.9330992415309455653791.jpg';
   }else{
-        return 'https://image.tmdb.org/t/p/w500/$profilePath';
+    return 'https://image.tmdb.org/t/p/w500/$profilePath';
   }
 }
 
